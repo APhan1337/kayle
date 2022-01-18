@@ -1,5 +1,13 @@
 # kayle
 
+## Accounts
+### Email
+email: kaylevanzylapp@gmail.com
+password: 3jV4PEkRCU7k4Q
+
+### Auth0
+sign in w/ Google
+
 ## Installation
 
 download all required node_packages (requires npm modeule "yarn")
