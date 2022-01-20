@@ -31,3 +31,5 @@ run();
 
 # Step 4:
 - Test it in Postman, save the request in postman
+
+NOTE: ENSURE THAT ENDPOINT RECEIVES QUERY STRING PARAMETERS
