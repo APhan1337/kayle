@@ -106,10 +106,10 @@
     "@solana/spl-token" "^0.1.8"
     "@solana/web3.js" "^1.31.0"
 
-"@metaplex/js@^4.11.6":
-  "integrity" "sha512-d2dvhB1chHRGazqK+HL0OlIaaKObQVnlgoonmyzbgBvTTPPzhN9w6wT13RBoU33Gyp69SGUoPDRS+dz9zs12rg=="
-  "resolved" "https://registry.npmjs.org/@metaplex/js/-/js-4.11.6.tgz"
-  "version" "4.11.6"
+"@metaplex/js@^4.11.7":
+  "integrity" "sha512-/8X04VEHMfWF84H2DZwLY3yg0xq75vgt/VtLuChTm8iUHkj99Whnq0NLTe0OqfhiEV0qFvT5dbLFh7x2CZqrEQ=="
+  "resolved" "https://registry.npmjs.org/@metaplex/js/-/js-4.11.7.tgz"
+  "version" "4.11.7"
   dependencies:
     "@metaplex-foundation/mpl-auction" "^0.0.2"
     "@metaplex-foundation/mpl-core" "^0.0.2"
@@ -119,7 +119,7 @@
     "@solana/spl-token" "^0.1.8"
     "@solana/web3.js" "^1.30.2"
     "@types/bs58" "^4.0.1"
-    "axios" "^0.21.4"
+    "axios" "^0.25.0"
     "bn.js" "^5.2.0"
     "borsh" "^0.4.0"
     "bs58" "^4.0.1"
@@ -319,12 +319,12 @@
   "resolved" "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   "version" "0.4.0"
 
-"axios@^0.21.4":
-  "integrity" "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg=="
-  "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
-  "version" "0.21.4"
+"axios@^0.25.0":
+  "integrity" "sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.25.0.tgz"
+  "version" "0.25.0"
   dependencies:
-    "follow-redirects" "^1.14.0"
+    "follow-redirects" "^1.14.7"
 
 "balanced-match@^1.0.0":
   "integrity" "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="
@@ -923,7 +923,7 @@
   "resolved" "https://registry.npmjs.org/flatted/-/flatted-3.2.4.tgz"
   "version" "3.2.4"
 
-"follow-redirects@^1.14.0":
+"follow-redirects@^1.14.7":
   "integrity" "sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ=="
   "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.7.tgz"
   "version" "1.14.7"
