@@ -1,31 +1,32 @@
-var metaplex = require('@metaplex/js');
-var metadata = require('@metaplex-foundation/mpl-token-metadata');
 var express = require('express');
 var router = express.Router();
 
-const connection = new metaplex.Connection('devnet');
-// const tokenPublicKey = 'Gz3vYbpsB2agTsAwedtvtTkQ1CG9vsioqLW3r9ecNpvZ';
+var erwin = {
+	"id": 13,
+	"age": null,
+	"photo_id": "https://res.cloudinary.com/erwin-json/image/upload/v1631740732/erwin-smith_dmbc1f.png",
+	"branch": "scouts",
+	"height_cm": 188,
+	"name": {
+		"first": "Erwin",
+		"last": "Smith"
+	},
+	"expeditions": [
+		{
+			"name": "Find Land",
+			"time": "2022-01-18T01:35:03.552Z"
+		}
+	]
+};
 
-
-
-router.get(['/', '/:metadata'], function(req, res, next) {
-	console.log(JSON.stringify(req.query));
-	var tokenPublicKey = req.query.tokenPublicKey;
-
-	const run = async () => {
-		console.log("Running...");
-		console.log(tokenPublicKey);
-		try {
-			const ownedMetadata = await metadata.Metadata.load(connection, tokenPublicKey);
-			console.log(ownedMetadata);
-			res.json(ownedMetadata);
-		  } catch {
-			console.log('Failed to fetch metadata');
-			res.render('error');
-		  }
-	};
-
-	run();
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+	let data = erwin;
+  	res.json(data);
 });
+
+/* UPDATE user */
+/* CREATE user */
+/* DELETE user */
 
 module.exports = router;
