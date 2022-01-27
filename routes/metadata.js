@@ -1,14 +1,23 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-const metadataService = require('../services/metadata/metadataService.js');
+const metadataService = require("../services/metadata/metadataService.js");
 
-router.get('/', async function(req, res, next) {
-	let solanaCluster = req.query.cluster;
-	let tokenPublicKey = req.query.publicKey;
+const { StatusCodes } = require("http-status-codes");
 
-	const ownedMetadata = await metadataService.getMetadataByPublicKey(solanaCluster, tokenPublicKey);
-	res.json(ownedMetadata);
+router.get("/", async function (req, res, next) {
+  let solanaCluster = req.query.cluster;
+  let tokenPublicKey = req.query.publicKey;
+
+  const ownedMetadata = await metadataService.getMetadataByPublicKey(
+    solanaCluster,
+    tokenPublicKey
+  );
+  if (!ownedMetadata.success) {
+    res.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+    res.json(ownedMetadata.message);
+  }
+  res.json(ownedMetadata.value);
 });
 
 module.exports = router;
