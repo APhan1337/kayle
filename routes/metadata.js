@@ -16,6 +16,7 @@ router.get("/", async function (req, res, next) {
   if (!ownedMetadata.success) {
     res.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
     res.json(ownedMetadata.message);
+    return;
   }
   res.json(ownedMetadata.value);
 });
