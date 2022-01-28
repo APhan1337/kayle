@@ -16,6 +16,40 @@ var swaggerUi = require("swagger-ui-express");
 var app = express();
 
 //#region Initialize Swagger Documentation
+// let swaggerSpecs = swaggerJsdoc(config.swaggerOptions);
+// app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+const swaggerDefinition = {
+  openapi: "3.0.0",
+  info: {
+    title: "Express API for JSONPlaceholder",
+    version: "1.0.0",
+    description:
+      "This is a REST API application made with Express. It retrieves data from JSONPlaceholder.",
+    license: {
+      name: "Licensed Under MIT",
+      url: "https://spdx.org/licenses/MIT.html",
+    },
+    contact: {
+      name: "JSONPlaceholder",
+      url: "https://jsonplaceholder.typicode.com",
+    },
+  },
+  servers: [
+    {
+      url: "http://localhost:3000",
+      description: "Development server",
+    },
+  ],
+};
+
+const options = {
+  swaggerDefinition,
+  // Paths to files containing OpenAPI definitions
+  apis: ["./routes/*.js"],
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //#endregion
 
@@ -36,7 +70,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var metaDataRouter = require("./routes/metadata");]
+var metaDataRouter = require("./routes/metadata");
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/metadata", metaDataRouter);
