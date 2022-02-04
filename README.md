@@ -1,14 +1,26 @@
 # kayle
 
-## Accounts
+## 1. Accounts
+
 ### Email
-email: kaylevanzylapp@gmail.com
+
+email: kaylevanzylapp@gmail.com<br>
 password: 3jV4PEkRCU7k4Q
 
 ### Auth0
+
 sign in w/ Google
 
-## Installation
+### MongoDB Atlas
+
+sign in w/ Google
+
+### Database Connection
+
+username: kaylevanzylcluster<br>
+password: 3jV4PEkRCU7k4Q
+
+## 2. Installation
 
 download all required node_packages (requires npm modeule "yarn")
 
@@ -16,13 +28,19 @@ download all required node_packages (requires npm modeule "yarn")
 yarn install
 ```
 
-## Running
+## 3. Running
+
+Set run-time environment to development
+
+```bash
+NODE_ENV=development node app.js
+```
 
 ```bash
 yarn start
 ```
 
-## Viewing
+## 4. Viewing
 
 view at
 
@@ -31,6 +49,7 @@ http://localhost:3000
 ```
 
 ## License
+
 MIT License
 
 Copyright (c) [2022] [kayle]
