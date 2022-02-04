@@ -4,11 +4,12 @@ var express = require("express");
 var router = express.Router();
 
 const axios = require("axios");
+const tokenConverter = require("../services/helpers/converter.js");
 
 // GET method route to retrieve requests from {{DOMAIN}}/account/balance
 router.get("/balance", function (req, res) {
-  // Access the provided 'id' query parameters
-  let params = req.query.id;
+  // Access the provided 'pubkey' (wallet address) query parameters
+  let params = req.query.pubkey;
 
   // Convert JSON object to JSON string for config.
   let data = JSON.stringify({
@@ -31,7 +32,11 @@ router.get("/balance", function (req, res) {
   // Make POST request with Axios.
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
+      let balanceLamport = response.data.result.value;
+      console.log(balanceLamport);
+      let balanceSol = tokenConverter.convertLamportToSol(balanceLamport);
+      console.log(balanceSol);
     })
     .catch(function (error) {
       console.log(error);
