@@ -1,0 +1,14 @@
+{
+  "get": {
+    "tags": ["Metadata"],
+    "summary": "Get an entity's metadata by public key.",
+    "responses": {
+      "200": {
+        "description": "OK",
+        "schema": {
+          "$ref": "#/definitions/Metadata"
+        }
+      }
+    }
+  }
+}

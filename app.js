@@ -16,40 +16,18 @@ var swaggerUi = require("swagger-ui-express");
 var app = express();
 
 //#region Initialize Swagger Documentation
-// let swaggerSpecs = swaggerJsdoc(config.swaggerOptions);
-// app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
-const swaggerDefinition = {
-  openapi: "3.0.0",
-  info: {
-    title: "Express API for JSONPlaceholder",
-    version: "1.0.0",
-    description:
-      "This is a REST API application made with Express. It retrieves data from JSONPlaceholder.",
-    license: {
-      name: "Licensed Under MIT",
-      url: "https://spdx.org/licenses/MIT.html",
-    },
-    contact: {
-      name: "JSONPlaceholder",
-      url: "https://jsonplaceholder.typicode.com",
-    },
-  },
-  servers: [
-    {
-      url: "http://localhost:3000",
-      description: "Development server",
-    },
-  ],
-};
 
-const options = {
-  swaggerDefinition,
-  // Paths to files containing OpenAPI definitions
+let swaggerDefinitionAssember = require("./services/helpers/swaggerDefinitionAssembler");
+let swaggerDefinition = swaggerDefinitionAssember.getSwaggerJson();
+let options = {
+  definition: swaggerDefinition,
   apis: ["./routes/*.js"],
 };
-
-const swaggerSpec = swaggerJsdoc(options);
-app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  "/documentation",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJsdoc(options))
+);
 
 //#endregion
 
@@ -92,5 +70,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+console.log(`View application at: ${config.host}/documentation`);
 
 module.exports = app;
