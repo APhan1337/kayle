@@ -5,7 +5,7 @@ const metadataService = require("../services/metadata/metadataService.js");
 
 const { StatusCodes } = require("http-status-codes");
 
-router.get("/", async function (req, res, next) {
+router.get("/", async function (req, res) {
   let solanaCluster = req.query.cluster;
   let tokenPublicKey = req.query.publicKey;
 
