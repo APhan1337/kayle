@@ -43,5 +43,34 @@ router.get("/balance", function (req, res) {
     });
 });
 
+router.get("/airdrop", function (req, res) {
+  let pubkey = req.query.recipient_address;
+  let amount = req.query.lamports;
+
+  let data = JSON.stringify({
+    jsonrpc: "2.0",
+    id: 1,
+    method: "requestAirdrop",
+    params: [pubkey, Number(amount)],
+  });
+
+  let config = {
+    method: "post",
+    url: "https://api.devnet.solana.com",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
+
 // Module exports the Router object.
 module.exports = router;
