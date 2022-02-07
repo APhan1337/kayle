@@ -1,19 +1,42 @@
+//#region Import Libraries
+
+var common = require("./common");
+var config = common.config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var swaggerJsdoc = require("swagger-jsdoc");
+var swaggerUi = require("swagger-ui-express");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var metadataRouter = require("./routes/metadata");
-var accountRouter = require("./routes/account");
+//#endregion
 
+// initialize express application
 var app = express();
 
-// view engine setup
+//#region Initialize Swagger Documentation
+
+let swaggerDefinitionAssember = require("./services/helpers/swaggerDefinitionAssembler");
+let swaggerDefinition = swaggerDefinitionAssember.getSwaggerJson();
+let options = {
+  definition: swaggerDefinition,
+  apis: ["./routes/*.js"],
+};
+app.use(
+  "/documentation",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJsdoc(options))
+);
+
+//#endregion
+
+//#region View Engine Setup
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
+
+//#endregion
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -21,10 +44,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+//#region Register Routes
+
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+var metadataRouter = require("./routes/metadata");
+var accountRouter = require("./routes/account");
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/metadata", metadataRouter);
 app.use("/account", accountRouter);
+
+//#endregion
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
