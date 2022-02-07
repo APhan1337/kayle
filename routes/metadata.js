@@ -1,9 +1,8 @@
-var express = require("express");
-var router = express.Router();
-
+const { StatusCodes } = require("http-status-codes");
 const metadataService = require("../services/metadata/metadataService.js");
 
-const { StatusCodes } = require("http-status-codes");
+var express = require("express");
+var router = express.Router();
 
 router.get("/", async function (req, res) {
   let solanaCluster = req.query.cluster;
@@ -13,11 +12,13 @@ router.get("/", async function (req, res) {
     solanaCluster,
     tokenPublicKey
   );
+
   if (!ownedMetadata.success) {
     res.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
     res.json(ownedMetadata.message);
     return;
   }
+
   res.json(ownedMetadata.value);
 });
 

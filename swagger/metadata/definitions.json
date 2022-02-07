@@ -1,0 +1,32 @@
+{
+  "Metadata": {
+    "required": ["name", "symbol", "uri", "sellerFeeBasisPoints", "creators"],
+    "name": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "uri": {
+      "type": "string"
+    },
+    "sellerFeeBasisPoints": {
+      "type": "integer"
+    },
+    "creators": {
+      "type": "array",
+      "$ref": "#/definitions/Creator"
+    }
+  },
+  "Creator": {
+    "address": {
+      "type": "string"
+    },
+    "verified": {
+      "type": "integer"
+    },
+    "share": {
+      "type": "integer"
+    }
+  }
+}

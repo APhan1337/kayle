@@ -74,4 +74,6 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+console.log(`View application at: ${config.host}/documentation`);
+
 module.exports = app;
