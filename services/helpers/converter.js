@@ -2,12 +2,12 @@ const conversionFactor = 0.000000001; // {sol} * conversionFactor = # of lamport
 
 function convertLamportToSol(lamport) {
   let sol = lamport * conversionFactor;
-  return sol;
+  return sol.toFixed(5);
 }
 
 function convertSolToLamport(sol) {
   let lamport = sol / conversionFactor;
-  return lamport;
+  return lamport.toFixed(5);
 }
 
 module.exports = { convertLamportToSol, convertSolToLamport };
