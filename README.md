@@ -20,6 +20,11 @@ sign in w/ Google
 username: kaylevanzylcluster<br>
 password: 3jV4PEkRCU7k4Q
 
+### Heroku
+
+email: kaylevanzylapp@gmail.com<br>
+password: 3jV4PEkRCU7k4Q!
+
 ## 2. Installation
 
 download all required node_packages (requires npm modeule "yarn")
