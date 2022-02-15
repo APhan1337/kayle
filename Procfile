@@ -1,1 +1,1 @@
-web: node Kayle.API/bin/www
+web: node kayle-api/bin/www
