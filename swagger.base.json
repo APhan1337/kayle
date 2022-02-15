@@ -19,6 +19,10 @@
     {
       "name": "Users",
       "description": "Interact with user wallets."
+    },
+    {
+      "name": "Wallet",
+      "description": "Interact with user wallets."
     }
   ],
   "schemes": ["http"],
@@ -31,7 +35,7 @@
         "summary": "Get an entity's metadata by public key.",
         "parameters": [
           {
-            "name": "publicKey",
+            "name": "pubkey",
             "in": "query",
             "description": "The public key of the asset.",
             "required": true,
@@ -99,6 +103,95 @@
                 ]
               }
             }
+          }
+        }
+      }
+    },
+    "/wallet/balance": {
+      "get": {
+        "tags": ["Wallet"],
+        "summary": "Get the account balance.",
+        "parameters": [
+          {
+            "name": "pubkey",
+            "in": "query",
+            "description": "Pubkey of account to query, as base-58 encoded string.",
+            "required": true,
+            "type": "string",
+            "default": "83astBRguLMdt2h5U1Tpdq5tjFoJ6noeGwaY3mDLVcri"
+          },
+          {
+            "name": "cluster",
+            "in": "query",
+            "description": "The Solana cluster to connect to (devnet, testnet, or mainnet).",
+            "required": true,
+            "type": "string",
+            "default": "devnet"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "lamport": 1000000000,
+                "sol": 1
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (check response message)"
+          },
+          "401": {
+            "description": "Unauthorized. Invalid API key (check response message)"
+          }
+        }
+      }
+    },
+    "/wallet/airdrop": {
+      "post": {
+        "tags": ["Wallet"],
+        "summary": "Requests an airdrop of lamports or SOL to a Pubkey",
+        "parameters": [
+          {
+            "name": "recipient_address",
+            "in": "query",
+            "description": "Pubkey of account to receive lamports or SOL, as base-58 encoded string",
+            "required": true,
+            "type": "string",
+            "default": "83astBRguLMdt2h5U1Tpdq5tjFoJ6noeGwaY3mDLVcri"
+          },
+          {
+            "name": "lamport",
+            "in": "query",
+            "description": "Amount of lamports (as a u64) to send (use either lamports or SOL)",
+            "required": false,
+            "type": "string",
+            "default": "1000000000"
+          },
+          {
+            "name": "sol",
+            "in": "query",
+            "description": "Amount of SOL to send (use either SOL or lamports)",
+            "required": false,
+            "type": "string",
+            "default": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "transactionSignature": "3gmXvykAd1nCQQ7MjosaHLf69Xyaqyq1qw2eu1mgPyYXd5G4v1rihhg1CiRw35b9fHzcftGKKEu4mbUeXY2pEX2z"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (check response message)"
+          },
+          "401": {
+            "description": "Unauthorized. Invalid API key (check response message)"
           }
         }
       }

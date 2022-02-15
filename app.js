@@ -48,10 +48,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var metaDataRouter = require("./routes/metadata");
+var metadataRouter = require("./routes/metadata");
+var walletRouter = require("./routes/wallet");
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/metadata", metaDataRouter);
+app.use("/metadata", metadataRouter);
+app.use("/wallet", walletRouter);
 
 //#endregion
 
