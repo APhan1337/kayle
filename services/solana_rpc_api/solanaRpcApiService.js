@@ -1,5 +1,5 @@
 const axios = require("axios");
-const constants = require("../helpers/constants.js");
+const constants = require("../helpers/solanaRPCResponseConstants.js");
 
 /**
  * Make HTTP Method Request with Axios

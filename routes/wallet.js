@@ -7,9 +7,9 @@ const axios = require("axios");
 const { StatusCodes } = require("http-status-codes");
 const { HTTPMethod } = require("http-method-enum");
 
-const constants = require("../services/helpers/constants.js");
+const constants = require("../services/helpers/solanaRPCResponseConstants.js");
 const tokenConverter = require("../services/helpers/converter.js");
-const queryString = require("../services/helpers/queryString.js");
+const solOrLamportQueryChecker = require("../services/helpers/solOrLamportQueryStringChecker.js");
 const clusterEndpoint = require("../services/helpers/rpcUrls.js");
 const solanaRpcApiService = require("../services/solana_rpc_api/solanaRpcApiService.js");
 
@@ -42,8 +42,8 @@ router.get("/balance", async function (req, res) {
   else if (rpcResponse.success == constants.SUCCESS) {
     res.statusCode = StatusCodes.OK;
     balance.lamport = rpcResponse.body.result.value;
-    balance.sol = tokenConverter.convertLamportToSol(
-      rpcResponse.body.result.value
+    balance.sol = parseFloat(
+      tokenConverter.convertLamportToSol(rpcResponse.body.result.value)
     );
     res.json(balance);
     return;
@@ -62,7 +62,10 @@ router.post("/airdrop", async function (req, res) {
   };
   let rpcMethod = "requestAirdrop";
   let pubkey = req.query.recipient_address;
-  let amount = queryString.solOrLamport(req.query.sol, req.query.lamport);
+  let amount = solOrLamportQueryChecker.solOrLamport(
+    req.query.sol,
+    req.query.lamport
+  );
   let params = [pubkey, parseFloat(amount)];
   let httpRequestMethod = HTTPMethod.POST;
   let rpcUrl = clusterEndpoint.getConnectionEndpoint(req.query.cluster);
