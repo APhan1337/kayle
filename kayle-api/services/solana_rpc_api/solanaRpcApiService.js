@@ -1,5 +1,5 @@
 const axios = require("axios");
-const constants = require("../helpers/solanaRPCResponseConstants.js");
+const constants = require("../helpers/solanaRpcResponseConstants.js");
 
 /**
  * Make HTTP Method Request with Axios
@@ -7,6 +7,7 @@ const constants = require("../helpers/solanaRPCResponseConstants.js");
  * @param {array} params - A JSON array of ordered parameter values.
  * @param {string} request - HTTP Request Method.
  * @param {string} url - Solana Cluster RPC Endpoint.
+ * @returns {JSON} rpcResponse - A JSON object that contains if Axios request was successful and response data.
  */
 async function getJsonRpcApi(method, params, request, url) {
   let rpcResponse = {

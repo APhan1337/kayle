@@ -3,13 +3,15 @@ var express = require("express");
 // Use Express application object to get a Router object.
 var router = express.Router();
 
+// Import libraries
 const axios = require("axios");
 const { StatusCodes } = require("http-status-codes");
 const { HTTPMethod } = require("http-method-enum");
 
-const constants = require("../services/helpers/solanaRPCResponseConstants.js");
+// Import modules
+const rpcResponseConstants = require("../services/helpers/solanaRpcResponseConstants.js");
 const tokenConverter = require("../services/helpers/converter.js");
-const solOrLamportQueryChecker = require("../services/helpers/solOrLamportQueryStringChecker.js");
+const solOrLamportQueryChecker = require("../services/helpers/tokenQueryStringParser.js");
 const clusterEndpoint = require("../services/helpers/rpcUrls.js");
 const solanaRpcApiService = require("../services/solana_rpc_api/solanaRpcApiService.js");
 
@@ -33,13 +35,13 @@ router.get("/balance", async function (req, res) {
   );
 
   // 401. Axios Error.
-  if (rpcResponse.success == constants.SERVER_ERROR) {
+  if (rpcResponse.success == rpcResponseConstants.SERVER_ERROR) {
     res.statusCode = StatusCodes.UNAUTHORIZED;
     res.json({ message: rpcResponse.body });
     return;
   }
   // 200.
-  else if (rpcResponse.success == constants.SUCCESS) {
+  else if (rpcResponse.success == rpcResponseConstants.SUCCESS) {
     res.statusCode = StatusCodes.OK;
     balance.lamport = rpcResponse.body.result.value;
     balance.sol = parseFloat(
@@ -49,7 +51,7 @@ router.get("/balance", async function (req, res) {
     return;
   }
   // 400. Solana RPC API Error.
-  else if (rpcResponse.success == constants.CLIENT_ERROR) {
+  else if (rpcResponse.success == rpcResponseConstants.CLIENT_ERROR) {
     res.statusCode = StatusCodes.BAD_REQUEST;
     res.json({ message: rpcResponse.body.message });
     return;
@@ -77,16 +79,16 @@ router.post("/airdrop", async function (req, res) {
     rpcUrl
   );
 
-  if (rpcResponse.success == constants.SERVER_ERROR) {
+  if (rpcResponse.success == rpcResponseConstants.SERVER_ERROR) {
     res.statusCode = StatusCodes.UNAUTHORIZED;
     res.json({ message: rpcResponse.body });
     return;
-  } else if (rpcResponse.success == constants.SUCCESS) {
+  } else if (rpcResponse.success == rpcResponseConstants.SUCCESS) {
     res.statusCode = StatusCodes.OK;
     airdrop.transactionSignature = rpcResponse.body.result;
     res.json(airdrop);
     return;
-  } else if (rpcResponse.success == constants.CLIENT_ERROR) {
+  } else if (rpcResponse.success == rpcResponseConstants.CLIENT_ERROR) {
     res.statusCode = StatusCodes.BAD_REQUEST;
     res.json({ message: rpcResponse.body.message });
     return;

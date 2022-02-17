@@ -3,6 +3,11 @@ const TESTNET_CONNECTION_ENDPOINT = "https://api.testnet.solana.com";
 const MAINNET_CONNECTION_ENDPOINT = "https://api.mainnet-beta.solana.com";
 const PROJECT_SERUM_CONNECTION_ENDPOINT = "https://solana-api.projectserum.com";
 
+/**
+ * Get the URL of the solana cluster endpoint for Axios request.
+ * @param {string} cluster - Query string of solana cluster.
+ * @returns {string} endpoint - URL of the API endpoint.
+ */
 function getConnectionEndpoint(cluster) {
   let endpoint = "";
   switch (cluster) {
@@ -23,7 +28,7 @@ function getConnectionEndpoint(cluster) {
       endpoint = PROJECT_SERUM_CONNECTION_ENDPOINT;
       break;
     default:
-      console.log("Invalid cluster.");
+      endpoint = cluster;
   }
   return endpoint;
 }
