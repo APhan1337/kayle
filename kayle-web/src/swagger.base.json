@@ -1,0 +1,237 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "Kayle",
+    "description": "An API that simplifies Solana blockchain interactions.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Metadata",
+      "description": "Interact with metadata for entities."
+    },
+    {
+      "name": "Users",
+      "description": "Interact with user wallets."
+    },
+    {
+      "name": "Wallet",
+      "description": "Interact with user wallets."
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/metadata": {
+      "get": {
+        "tags": ["Metadata"],
+        "summary": "Get an entity's metadata by public key.",
+        "parameters": [
+          {
+            "name": "pubkey",
+            "in": "query",
+            "description": "The public key of the asset.",
+            "required": true,
+            "type": "string",
+            "default": "Gz3vYbpsB2agTsAwedtvtTkQ1CG9vsioqLW3r9ecNpvZ"
+          },
+          {
+            "name": "cluster",
+            "in": "query",
+            "description": "The Solana cluster to connect to (devnet, testnet, or mainnet).",
+            "required": true,
+            "type": "string",
+            "default": "devnet"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Metadata"
+            },
+            "examples": {
+              "application/json": {
+                "name": "Cat #3",
+                "symbol": "",
+                "uri": "https://arweave.net/APnrDX2KUusunMAH8dz7Dq5UfbiJKDTrOYT2-PNMuDw",
+                "sellerFeeBasisPoints": 0,
+                "creators": [
+                  {
+                    "address": "4y9rrGujnWjszjX3kbgHERXCcdCpBuzNg1hmbv7e7cW5",
+                    "verified": 1,
+                    "share": 100
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Get information about Erwin Smith",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "id": 13,
+                "age": null,
+                "photo_id": "https://res.cloudinary.com/erwin-json/image/upload/v1631740732/erwin-smith_dmbc1f.png",
+                "branch": "scouts",
+                "height_cm": 188,
+                "name": {
+                  "first": "Erwin",
+                  "last": "Smith"
+                },
+                "expeditions": [
+                  {
+                    "name": "Find Land",
+                    "time": "2022-01-18T01:35:03.552Z"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallet/balance": {
+      "get": {
+        "tags": ["Wallet"],
+        "summary": "Get the account balance.",
+        "parameters": [
+          {
+            "name": "pubkey",
+            "in": "query",
+            "description": "Pubkey of account to query, as base-58 encoded string.",
+            "required": true,
+            "type": "string",
+            "default": "83astBRguLMdt2h5U1Tpdq5tjFoJ6noeGwaY3mDLVcri"
+          },
+          {
+            "name": "cluster",
+            "in": "query",
+            "description": "The Solana cluster to connect to (devnet, testnet, or mainnet).",
+            "required": true,
+            "type": "string",
+            "default": "devnet"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "lamport": 1000000000,
+                "sol": 1
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (check response message)"
+          },
+          "401": {
+            "description": "Unauthorized. Invalid API key (check response message)"
+          }
+        }
+      }
+    },
+    "/wallet/airdrop": {
+      "post": {
+        "tags": ["Wallet"],
+        "summary": "Requests an airdrop of lamports or SOL to a Pubkey",
+        "parameters": [
+          {
+            "name": "recipient_address",
+            "in": "query",
+            "description": "Pubkey of account to receive lamports or SOL, as base-58 encoded string",
+            "required": true,
+            "type": "string",
+            "default": "83astBRguLMdt2h5U1Tpdq5tjFoJ6noeGwaY3mDLVcri"
+          },
+          {
+            "name": "lamport",
+            "in": "query",
+            "description": "Amount of lamports (as a u64) to send (use either lamports or SOL)",
+            "required": false,
+            "type": "string",
+            "default": "1000000000"
+          },
+          {
+            "name": "sol",
+            "in": "query",
+            "description": "Amount of SOL to send (use either SOL or lamports)",
+            "required": false,
+            "type": "string",
+            "default": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "transactionSignature": "3gmXvykAd1nCQQ7MjosaHLf69Xyaqyq1qw2eu1mgPyYXd5G4v1rihhg1CiRw35b9fHzcftGKKEu4mbUeXY2pEX2z"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (check response message)"
+          },
+          "401": {
+            "description": "Unauthorized. Invalid API key (check response message)"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "sellerFeeBasisPoints": {
+          "type": "integer"
+        },
+        "creators": {
+          "type": "array",
+          "$ref": "#/definitions/Creator"
+        }
+      }
+    },
+    "Creator": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "integer"
+        },
+        "share": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
