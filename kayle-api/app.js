@@ -58,6 +58,11 @@ app.use("/wallet", walletRouter);
 
 //#endregion
 
+const openAPIspec = require("./swagger.base.json");
+app.get("/swagger.base.json", function (req, res) {
+  res.json(openAPIspec);
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
