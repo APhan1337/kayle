@@ -15,6 +15,14 @@ var swaggerUi = require("swagger-ui-express");
 // initialize express application
 var app = express();
 
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, "../kayle-web/build")));
+
+// All other GET requests not handled before will return our React app
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../kayle-web/build", "index.html"));
+});
+
 //#region Initialize Swagger Documentation
 
 let swaggerDefinitionAssember = require("./services/helpers/swaggerDefinitionAssembler");
