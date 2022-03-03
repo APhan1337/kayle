@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node kayle-api/bin/www"
+    "start": "node kayle-api/bin/www",
+    "postinstall": "cd kayle-api && npm install"
   }
 }
