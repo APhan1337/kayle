@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set NODE_ENV=development && node ./bin/www",
-    "build": "cd kayle-web && npm install && npm run build"
+    "start": "set NODE_ENV=development && node ./bin/www"
   },
   "dependencies": {
     "@metaplex/js": "^4.11.7",
