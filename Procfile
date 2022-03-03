@@ -1,1 +1,0 @@
-web: node kayle-api/bin/www
